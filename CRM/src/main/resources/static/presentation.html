@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Brief | EstateArchitect India</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body class="auth-body">
+<div class="brief-shell">
+    <section class="brief-hero">
+        <div class="header-copy">
+            <p class="eyebrow">College Project Brief</p>
+            <h1>Real Estate CRM for Indian property teams</h1>
+            <p>This page is designed for project demonstration, viva preparation, and quick reviewer walkthroughs. It summarizes the architecture, modules, sample credentials, business rules, and the exact value of the system.</p>
+        </div>
+        <div class="form-actions">
+            <a class="button button-primary" href="/">Open Login</a>
+            <a class="button button-secondary" href="/swagger-ui.html">Open Swagger</a>
+            <a class="button button-secondary" href="/dashboard.html">Open Dashboard</a>
+        </div>
+    </section>
+
+    <section class="brief-grid">
+        <article class="surface-card">
+            <p class="eyebrow">Synopsis</p>
+            <h2>Problem solved</h2>
+            <p class="copy">Real estate teams often manage inventory, brokers, clients, and bookings across disconnected spreadsheets and messaging threads. This CRM centralizes property operations into one secure web application with role-based access, search, exports, analytics, and booking lifecycle tracking.</p>
+        </article>
+        <article class="surface-card tinted">
+            <p class="eyebrow">Technology</p>
+            <h2>Stack used</h2>
+            <ul class="brief-list">
+                <li>Java 17 with Spring Boot and Maven</li>
+                <li>Spring Security with JWT authentication</li>
+                <li>Spring Data JPA with Hibernate ORM</li>
+                <li>MySQL for primary persistence</li>
+                <li>HTML, CSS, and JavaScript frontend served by Spring Boot</li>
+                <li>Swagger OpenAPI documentation and CSV/Excel exports</li>
+            </ul>
+        </article>
+        <article class="surface-card">
+            <p class="eyebrow">User Roles</p>
+            <h2>Access model</h2>
+            <ul class="brief-list">
+                <li><strong>Admin:</strong> full control over properties, clients, brokers, bookings, and exports</li>
+                <li><strong>Broker:</strong> can work on inventory, clients, and booking operations through protected APIs</li>
+                <li>JWT tokens secure every protected backend request after login</li>
+            </ul>
+        </article>
+    </section>
+
+    <section class="brief-grid">
+        <article class="surface-card">
+            <p class="eyebrow">Architecture</p>
+            <h2>Layered backend design</h2>
+            <div class="timeline-list">
+                <div class="timeline-item"><strong>Controller Layer</strong><span>Exposes REST APIs for authentication, properties, clients, brokers, bookings, dashboard, and exports.</span></div>
+                <div class="timeline-item"><strong>Service Layer</strong><span>Contains business rules such as lead conversion, booking confirmation constraints, payment validation, inventory synchronization, and dashboard analytics aggregation.</span></div>
+                <div class="timeline-item"><strong>Repository Layer</strong><span>Uses JPA repositories and specifications for CRUD, filtering, pagination, and persistence.</span></div>
+                <div class="timeline-item"><strong>Database Layer</strong><span>MySQL stores users, brokers, leads, properties, clients, and bookings with seeded Indian sample data.</span></div>
+            </div>
+        </article>
+        <article class="surface-card tinted">
+            <p class="eyebrow">Core Modules</p>
+            <h2>Functional coverage</h2>
+            <ul class="brief-list">
+                <li>Dashboard analytics with lead funnel, booking conversion, collections, and city mix</li>
+                <li>Lead management with stage tracking, follow-up dates, source analysis, and one-click conversion to clients</li>
+                <li>Property management with filters by city, locality, type, price, status, and featured state</li>
+                <li>Client management with persisted preferred locality tracking</li>
+                <li>Broker management with linked login provisioning</li>
+                <li>Booking system with pending, confirmed, and cancelled states plus payment tracking</li>
+                <li>Export modules for leads, properties, clients, and bookings</li>
+            </ul>
+        </article>
+    </section>
+
+    <section class="brief-grid">
+        <article class="surface-card">
+            <p class="eyebrow">Business Rules</p>
+            <h2>Important logic enforced</h2>
+            <ul class="brief-list">
+                <li>Only one confirmed booking is allowed per property.</li>
+                <li>Confirmed bookings automatically mark the property as sold.</li>
+                <li>Removing or changing confirmed bookings re-syncs property status.</li>
+                <li>Payment status is derived and validated from booking amount and amount collected.</li>
+                <li>Leads can be converted into clients without re-entering buyer information.</li>
+                <li>Properties with active bookings cannot be deleted.</li>
+                <li>Brokers are backed by authenticated application users.</li>
+            </ul>
+        </article>
+        <article class="surface-card tinted">
+            <p class="eyebrow">Demo Credentials</p>
+            <h2>Ready-to-use accounts</h2>
+            <div class="credential-grid">
+                <div class="auth-credential">
+                    <p class="eyebrow">Admin</p>
+                    <strong>admin@realestatecrm.com</strong>
+                    <p>admin123</p>
+                </div>
+                <div class="auth-credential">
+                    <p class="eyebrow">Broker</p>
+                    <strong>aarav@realestatecrm.com</strong>
+                    <p>agent123</p>
+                </div>
+                <div class="auth-credential">
+                    <p class="eyebrow">Broker</p>
+                    <strong>diya@realestatecrm.com</strong>
+                    <p>agent123</p>
+                </div>
+                <div class="auth-credential">
+                    <p class="eyebrow">Broker</p>
+                    <strong>vikram@realestatecrm.com</strong>
+                    <p>agent123</p>
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <section class="surface-card">
+        <p class="eyebrow">Viva Notes</p>
+        <h2>Suggested explanation flow</h2>
+        <ol class="brief-list numbered">
+            <li>Start with the problem: real-estate data is usually scattered and manual.</li>
+            <li>Explain the full-stack solution: Spring Boot backend, MySQL database, and integrated frontend.</li>
+            <li>Show login and role-based access with JWT.</li>
+            <li>Demonstrate lead capture, follow-up scheduling, and lead conversion into client records.</li>
+            <li>Demonstrate inventory filtering, broker assignment, and booking creation with token/payment details.</li>
+            <li>Highlight the automatic sold-status update after confirmed booking and payment validation rules.</li>
+            <li>Show the dashboard analytics and export features as advanced functionality.</li>
+        </ol>
+    </section>
+
+    <section class="surface-card tinted">
+        <p class="eyebrow">Possible Viva Questions</p>
+        <h2>Prepared answers</h2>
+        <div class="viva-list">
+            <div class="viva-item"><strong>Why layered architecture?</strong><span>It separates API handling, business logic, and persistence, which improves readability, testing, and maintainability.</span></div>
+            <div class="viva-item"><strong>Why JWT?</strong><span>JWT supports stateless authentication and fits REST APIs well because every request can be authenticated independently.</span></div>
+            <div class="viva-item"><strong>Why JPA/Hibernate?</strong><span>It reduces boilerplate SQL, maps Java entities to tables, and supports repository abstractions, filtering, and relationships.</span></div>
+            <div class="viva-item"><strong>How is data integrity maintained?</strong><span>Validation rules, foreign-key relationships, and service-layer business checks prevent invalid bookings and inconsistent property status.</span></div>
+            <div class="viva-item"><strong>Why add leads before clients?</strong><span>In real CRMs, an enquiry appears first as a lead. Converting leads to clients preserves sales pipeline visibility before a formal booking is created.</span></div>
+        </div>
+    </section>
+</div>
+</body>
+</html>

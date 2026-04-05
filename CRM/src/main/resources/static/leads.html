@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leads | EstateArchitect India</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body data-page="leads">
+<div class="topbar-mobile">
+    <strong>EstateArchitect India</strong>
+    <button id="logoutButtonMobile" class="button button-secondary">Logout</button>
+</div>
+
+<div class="app-shell">
+    <aside class="sidebar">
+        <div class="sidebar-head">
+            <h1 class="brand-title">The Architect</h1>
+            <p class="brand-subtitle">India CRM Suite</p>
+        </div>
+        <nav class="nav-links">
+            <a href="/dashboard.html" data-nav="dashboard" class="nav-link"><span class="material-symbols-outlined">space_dashboard</span><span>Dashboard</span></a>
+            <a href="/leads.html" data-nav="leads" class="nav-link"><span class="material-symbols-outlined">conversion_path</span><span>Leads</span></a>
+            <a href="/properties.html" data-nav="properties" class="nav-link"><span class="material-symbols-outlined">domain</span><span>Properties</span></a>
+            <a href="/clients.html" data-nav="clients" class="nav-link"><span class="material-symbols-outlined">group</span><span>Clients</span></a>
+            <a href="/agents.html" data-nav="agents" class="nav-link admin-only"><span class="material-symbols-outlined">badge</span><span>Brokers</span></a>
+            <a href="/bookings.html" data-nav="bookings" class="nav-link"><span class="material-symbols-outlined">calendar_today</span><span>Bookings</span></a>
+        </nav>
+        <div class="sidebar-foot">
+            <div class="user-block">
+                <p class="eyebrow">Signed In</p>
+                <p id="currentUserLabel">Loading...</p>
+            </div>
+            <button id="logoutButton" class="button button-secondary">Logout</button>
+        </div>
+    </aside>
+
+    <main class="page">
+        <header class="page-header">
+            <div class="header-copy">
+                <p class="eyebrow">Sales Pipeline</p>
+                <h1>Lead management</h1>
+                <p>Capture enquiries from portals, referrals, walk-ins, and direct calls, assign them to brokers, and convert strong prospects into clients when they are ready for the booking flow.</p>
+            </div>
+            <div class="form-actions">
+                <button id="exportLeadsButton" class="button button-secondary admin-only" type="button">Export Leads CSV</button>
+            </div>
+        </header>
+
+        <section class="two-col layout-grid">
+            <article class="surface-card">
+                <div class="section-header">
+                    <div>
+                        <p class="eyebrow">Lead Form</p>
+                        <h2>Add or update lead</h2>
+                    </div>
+                    <span class="pill-note">Conversion-first pipeline</span>
+                </div>
+                <form id="leadForm" class="form-stack">
+                    <input id="leadId" type="hidden">
+                    <div class="form-grid">
+                        <label><span>Name</span><input id="leadName" required></label>
+                        <label><span>Email</span><input id="leadEmail" type="email" required></label>
+                        <label><span>Phone</span><input id="leadPhone" required></label>
+                        <label><span>Preferred Locality</span><input id="leadPreferredLocation" required></label>
+                        <label><span>Budget Min</span><input id="leadBudgetMin" type="number" min="1" step="0.01"></label>
+                        <label><span>Budget Max</span><input id="leadBudgetMax" type="number" min="1" step="0.01"></label>
+                        <label>
+                            <span>Interest Type</span>
+                            <select id="leadInterestType" required>
+                                <option value="BUY">Buy</option>
+                                <option value="RENT">Rent</option>
+                                <option value="SELL">Sell</option>
+                                <option value="INVEST">Invest</option>
+                            </select>
+                        </label>
+                        <label>
+                            <span>Source</span>
+                            <select id="leadSource" required>
+                                <option value="PORTAL">Portal</option>
+                                <option value="REFERRAL">Referral</option>
+                                <option value="WALK_IN">Walk In</option>
+                                <option value="SOCIAL_MEDIA">Social Media</option>
+                                <option value="DIRECT_CALL">Direct Call</option>
+                            </select>
+                        </label>
+                        <label><span>Follow-up Date</span><input id="leadFollowUpDate" type="date"></label>
+                        <label>
+                            <span>Stage</span>
+                            <select id="leadStage" required>
+                                <option value="NEW">New</option>
+                                <option value="CONTACTED">Contacted</option>
+                                <option value="SITE_VISIT_SCHEDULED">Site Visit Scheduled</option>
+                                <option value="NEGOTIATION">Negotiation</option>
+                                <option value="BOOKED">Booked</option>
+                                <option value="CONVERTED">Converted</option>
+                                <option value="LOST">Lost</option>
+                            </select>
+                        </label>
+                        <label>
+                            <span>Assigned Broker</span>
+                            <select id="leadAgentId">
+                                <option value="">Unassigned</option>
+                            </select>
+                        </label>
+                        <label class="full-span">
+                            <span>Notes</span>
+                            <textarea id="leadNotes" placeholder="Lead context, objections, financing requirements, or project preferences"></textarea>
+                        </label>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="button button-primary">Save Lead</button>
+                        <button type="button" id="cancelLeadEdit" class="button button-secondary hidden">Cancel Edit</button>
+                    </div>
+                </form>
+            </article>
+
+            <article class="surface-card tinted">
+                <div class="section-header">
+                    <div>
+                        <p class="eyebrow">Pipeline Filter</p>
+                        <h2>Narrow lead results</h2>
+                    </div>
+                </div>
+                <form id="leadFilterForm" class="form-stack">
+                    <div class="form-grid">
+                        <label>
+                            <span>Stage</span>
+                            <select id="filterLeadStage">
+                                <option value="">All</option>
+                                <option value="NEW">New</option>
+                                <option value="CONTACTED">Contacted</option>
+                                <option value="SITE_VISIT_SCHEDULED">Site Visit Scheduled</option>
+                                <option value="NEGOTIATION">Negotiation</option>
+                                <option value="BOOKED">Booked</option>
+                                <option value="CONVERTED">Converted</option>
+                                <option value="LOST">Lost</option>
+                            </select>
+                        </label>
+                        <label>
+                            <span>Source</span>
+                            <select id="filterLeadSource">
+                                <option value="">All</option>
+                                <option value="PORTAL">Portal</option>
+                                <option value="REFERRAL">Referral</option>
+                                <option value="WALK_IN">Walk In</option>
+                                <option value="SOCIAL_MEDIA">Social Media</option>
+                                <option value="DIRECT_CALL">Direct Call</option>
+                            </select>
+                        </label>
+                        <label>
+                            <span>Broker</span>
+                            <select id="filterLeadAgentId">
+                                <option value="">All brokers</option>
+                            </select>
+                        </label>
+                        <label><span>Follow-up Date</span><input id="filterLeadFollowUpDate" type="date"></label>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="button button-primary">Apply Filters</button>
+                        <button type="button" id="resetLeadFilters" class="button button-secondary">Reset</button>
+                    </div>
+                </form>
+            </article>
+        </section>
+
+        <section class="stats-grid">
+            <article class="stat-chip">
+                <p class="eyebrow">Visible Leads</p>
+                <strong id="leadsVisibleCount">0</strong>
+                <span class="muted">Current page</span>
+            </article>
+            <article class="stat-chip">
+                <p class="eyebrow">Hot Pipeline</p>
+                <strong id="leadsHotCount">0</strong>
+                <span class="muted">Site visit and negotiation stages</span>
+            </article>
+            <article class="stat-chip">
+                <p class="eyebrow">Average Ticket</p>
+                <strong id="leadsAverageBudget">Rs 0</strong>
+                <span class="muted">Midpoint of visible budgets</span>
+            </article>
+            <article class="stat-chip">
+                <p class="eyebrow">Due Follow-ups</p>
+                <strong id="leadsDueCount">0</strong>
+                <span class="muted">Today or earlier</span>
+            </article>
+        </section>
+
+        <section class="surface-card">
+            <div class="section-header">
+                <div>
+                    <p class="eyebrow">Lead Ledger</p>
+                    <h2>Lead list</h2>
+                </div>
+            </div>
+            <div class="data-table-wrap">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Lead</th>
+                        <th>Budget</th>
+                        <th>Interest</th>
+                        <th>Stage</th>
+                        <th>Broker</th>
+                        <th>Follow-up</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody id="leadTableBody"></tbody>
+                </table>
+            </div>
+            <div id="leadPagination" class="pagination"></div>
+        </section>
+    </main>
+</div>
+
+<nav class="bottom-nav">
+    <a href="/dashboard.html" data-nav="dashboard"><span class="material-symbols-outlined">space_dashboard</span><span>Home</span></a>
+    <a href="/leads.html" data-nav="leads"><span class="material-symbols-outlined">conversion_path</span><span>Leads</span></a>
+    <a href="/properties.html" data-nav="properties"><span class="material-symbols-outlined">domain</span><span>Properties</span></a>
+    <a href="/clients.html" data-nav="clients"><span class="material-symbols-outlined">group</span><span>Clients</span></a>
+    <a href="/agents.html" data-nav="agents" class="admin-only"><span class="material-symbols-outlined">badge</span><span>Brokers</span></a>
+    <a href="/bookings.html" data-nav="bookings"><span class="material-symbols-outlined">calendar_today</span><span>Bookings</span></a>
+</nav>
+
+<div id="toast" class="toast"></div>
+<script src="/assets/app.js"></script>
+</body>
+</html>

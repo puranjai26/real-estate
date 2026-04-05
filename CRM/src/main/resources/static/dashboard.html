@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | EstateArchitect India</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body data-page="dashboard">
+<div class="topbar-mobile">
+    <strong>EstateArchitect India</strong>
+    <button id="logoutButtonMobile" class="button button-secondary">Logout</button>
+</div>
+
+<div class="app-shell">
+    <aside class="sidebar">
+        <div class="sidebar-head">
+            <h1 class="brand-title">The Architect</h1>
+            <p class="brand-subtitle">India CRM Suite</p>
+        </div>
+        <nav class="nav-links">
+            <a href="/dashboard.html" data-nav="dashboard" class="nav-link"><span class="material-symbols-outlined">space_dashboard</span><span>Dashboard</span></a>
+            <a href="/leads.html" data-nav="leads" class="nav-link"><span class="material-symbols-outlined">conversion_path</span><span>Leads</span></a>
+            <a href="/properties.html" data-nav="properties" class="nav-link"><span class="material-symbols-outlined">domain</span><span>Properties</span></a>
+            <a href="/clients.html" data-nav="clients" class="nav-link"><span class="material-symbols-outlined">group</span><span>Clients</span></a>
+            <a href="/agents.html" data-nav="agents" class="nav-link admin-only"><span class="material-symbols-outlined">badge</span><span>Brokers</span></a>
+            <a href="/bookings.html" data-nav="bookings" class="nav-link"><span class="material-symbols-outlined">calendar_today</span><span>Bookings</span></a>
+        </nav>
+        <div class="sidebar-foot">
+            <div class="user-block">
+                <p class="eyebrow">Signed In</p>
+                <p id="currentUserLabel">Loading...</p>
+            </div>
+            <button id="logoutButton" class="button button-secondary">Logout</button>
+        </div>
+    </aside>
+
+    <main class="page">
+        <header class="page-header">
+            <div class="header-copy">
+                <p class="eyebrow">Command Center</p>
+                <h1>Indian real estate dashboard</h1>
+                <p>Track property stock, live client volume, booking momentum, and inventory value in rupees through the same APIs used by the admin tools.</p>
+            </div>
+            <div class="form-actions">
+                <a href="/presentation.html" class="button button-secondary">Project Brief</a>
+                <button id="exportPropertiesButton" class="button button-secondary admin-only">Export Properties CSV</button>
+                <button id="exportBookingsButton" class="button button-primary admin-only">Export Bookings Excel</button>
+            </div>
+        </header>
+
+        <section class="hero-banner">
+            <div>
+                <p class="eyebrow">Operational Snapshot</p>
+                <h2>Manage sales, site visits, and inventory across Indian micro-markets from one calm surface.</h2>
+            </div>
+            <p>Inventory, clients, and bookings are loaded directly from the Spring Boot backend so this screen stays accurate during demos for cities like Mumbai, Pune, Bengaluru, Gurugram, and Jaipur.</p>
+        </section>
+
+        <section id="metricsGrid" class="metrics-grid"></section>
+
+        <section class="triple-grid layout-grid">
+            <article class="surface-card gradient-card">
+                <div class="section-header">
+                    <div>
+                        <p class="eyebrow">Revenue View</p>
+                        <h2>Portfolio economics</h2>
+                    </div>
+                </div>
+                <div id="portfolioHighlight" class="highlight-stack"></div>
+            </article>
+
+            <article class="surface-card">
+                <div class="section-header">
+                    <div>
+                        <p class="eyebrow">Inventory Mix</p>
+                        <h2>Property types</h2>
+                    </div>
+                </div>
+                <div id="propertyTypeMix" class="distribution-list"></div>
+            </article>
+
+            <article class="surface-card tinted">
+                <div class="section-header">
+                    <div>
+                        <p class="eyebrow">Demand Centers</p>
+                        <h2>City activity</h2>
+                    </div>
+                </div>
+                <div id="cityMix" class="distribution-list"></div>
+            </article>
+        </section>
+
+        <section class="triple-grid layout-grid">
+            <article class="surface-card">
+                <div class="section-header">
+                    <div>
+                        <p class="eyebrow">Collections</p>
+                        <h2>Booking finance snapshot</h2>
+                    </div>
+                </div>
+                <div id="paymentSnapshot" class="highlight-stack"></div>
+            </article>
+            <article class="surface-card tinted">
+                <div class="section-header">
+                    <div>
+                        <p class="eyebrow">Lead Pipeline</p>
+                        <h2>Stage mix</h2>
+                    </div>
+                </div>
+                <div id="leadStageMix" class="distribution-list"></div>
+            </article>
+            <article class="surface-card">
+                <div class="section-header">
+                    <div>
+                        <p class="eyebrow">Lead Sources</p>
+                        <h2>Acquisition mix</h2>
+                    </div>
+                </div>
+                <div id="leadSourceMix" class="distribution-list"></div>
+            </article>
+        </section>
+
+        <section class="split-grid layout-grid">
+            <article class="surface-card">
+                <div class="section-header">
+                    <div>
+                        <p class="eyebrow">Broker Scoreboard</p>
+                        <h2>Top performers</h2>
+                    </div>
+                </div>
+                <div id="brokerLeaderboard" class="leaderboard-list"></div>
+            </article>
+
+            <article class="surface-card tinted">
+                <div class="section-header">
+                    <div>
+                        <p class="eyebrow">Visit Calendar</p>
+                        <h2>Upcoming bookings</h2>
+                    </div>
+                </div>
+                <div id="upcomingBookings" class="upcoming-list"></div>
+            </article>
+        </section>
+
+        <section class="surface-card tinted">
+            <div class="section-header">
+                <div>
+                    <p class="eyebrow">Follow-up Desk</p>
+                    <h2>Upcoming lead follow-ups</h2>
+                </div>
+                <a class="button button-secondary" href="/leads.html">Open Pipeline</a>
+            </div>
+            <div id="leadFollowUps" class="upcoming-list"></div>
+        </section>
+
+        <section class="split-grid layout-grid">
+            <article class="surface-card">
+                <div class="section-header">
+                    <div>
+                        <p class="eyebrow">Inventory Feed</p>
+                        <h2>Recent Properties</h2>
+                    </div>
+                    <a class="button button-secondary" href="/properties.html">Manage</a>
+                </div>
+                <div class="data-table-wrap">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Property</th>
+                            <th>Type</th>
+                            <th>Location</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody id="recentPropertiesBody"></tbody>
+                    </table>
+                </div>
+            </article>
+
+            <article class="surface-card tinted">
+                <div class="section-header">
+                    <div>
+                        <p class="eyebrow">Live Pipeline</p>
+                        <h2>Recent Bookings</h2>
+                    </div>
+                    <a class="button button-secondary" href="/bookings.html">Review</a>
+                </div>
+                <div class="data-table-wrap">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Property</th>
+                            <th>Client</th>
+                            <th>Broker</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody id="recentBookingsBody"></tbody>
+                    </table>
+                </div>
+            </article>
+        </section>
+    </main>
+</div>
+
+<nav class="bottom-nav">
+    <a href="/dashboard.html" data-nav="dashboard"><span class="material-symbols-outlined">space_dashboard</span><span>Home</span></a>
+    <a href="/leads.html" data-nav="leads"><span class="material-symbols-outlined">conversion_path</span><span>Leads</span></a>
+    <a href="/properties.html" data-nav="properties"><span class="material-symbols-outlined">domain</span><span>Properties</span></a>
+    <a href="/clients.html" data-nav="clients"><span class="material-symbols-outlined">group</span><span>Clients</span></a>
+    <a href="/agents.html" data-nav="agents" class="admin-only"><span class="material-symbols-outlined">badge</span><span>Brokers</span></a>
+    <a href="/bookings.html" data-nav="bookings"><span class="material-symbols-outlined">calendar_today</span><span>Bookings</span></a>
+</nav>
+
+<div id="toast" class="toast"></div>
+<script src="/assets/app.js"></script>
+</body>
+</html>

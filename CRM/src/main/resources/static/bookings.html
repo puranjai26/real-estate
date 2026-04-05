@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookings | EstateArchitect India</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body data-page="bookings">
+<div class="topbar-mobile">
+    <strong>EstateArchitect India</strong>
+    <button id="logoutButtonMobile" class="button button-secondary">Logout</button>
+</div>
+
+<div class="app-shell">
+    <aside class="sidebar">
+        <div class="sidebar-head">
+            <h1 class="brand-title">The Architect</h1>
+            <p class="brand-subtitle">India CRM Suite</p>
+        </div>
+        <nav class="nav-links">
+            <a href="/dashboard.html" data-nav="dashboard" class="nav-link"><span class="material-symbols-outlined">space_dashboard</span><span>Dashboard</span></a>
+            <a href="/leads.html" data-nav="leads" class="nav-link"><span class="material-symbols-outlined">conversion_path</span><span>Leads</span></a>
+            <a href="/properties.html" data-nav="properties" class="nav-link"><span class="material-symbols-outlined">domain</span><span>Properties</span></a>
+            <a href="/clients.html" data-nav="clients" class="nav-link"><span class="material-symbols-outlined">group</span><span>Clients</span></a>
+            <a href="/agents.html" data-nav="agents" class="nav-link admin-only"><span class="material-symbols-outlined">badge</span><span>Brokers</span></a>
+            <a href="/bookings.html" data-nav="bookings" class="nav-link"><span class="material-symbols-outlined">calendar_today</span><span>Bookings</span></a>
+        </nav>
+        <div class="sidebar-foot">
+            <div class="user-block">
+                <p class="eyebrow">Signed In</p>
+                <p id="currentUserLabel">Loading...</p>
+            </div>
+            <button id="logoutButton" class="button button-secondary">Logout</button>
+        </div>
+    </aside>
+
+    <main class="page">
+        <header class="page-header">
+            <div class="header-copy">
+                <p class="eyebrow">Booking Engine</p>
+                <h1>Booking system</h1>
+                <p>Match clients to properties, manage site visits and token bookings, keep broker ownership aligned, and let the backend enforce one confirmed booking per property.</p>
+            </div>
+        </header>
+
+        <section class="split-grid layout-grid">
+            <article class="surface-card">
+                <div class="section-header">
+                    <div>
+                        <p class="eyebrow">Booking Form</p>
+                        <h2>Add or update booking</h2>
+                    </div>
+                </div>
+                <form id="bookingForm" class="form-stack">
+                    <input id="bookingId" type="hidden">
+                    <div class="form-grid">
+                        <label><span>Property</span><select id="bookingPropertyId" required></select></label>
+                        <label><span>Client</span><select id="bookingClientId" required></select></label>
+                        <label><span>Broker</span><select id="bookingAgentId" required></select></label>
+                        <label><span>Date</span><input id="bookingDate" type="date" required></label>
+                        <label><span>Booking Amount</span><input id="bookingAmount" type="number" min="1" step="0.01" required></label>
+                        <label><span>Amount Paid</span><input id="bookingAmountPaid" type="number" min="0" step="0.01"></label>
+                        <label>
+                            <span>Status</span>
+                            <select id="bookingStatus" required>
+                                <option value="PENDING">Pending</option>
+                                <option value="CONFIRMED">Confirmed</option>
+                                <option value="CANCELLED">Cancelled</option>
+                            </select>
+                        </label>
+                        <label>
+                            <span>Payment Status</span>
+                            <select id="bookingPaymentStatus">
+                                <option value="NOT_STARTED">Not Started</option>
+                                <option value="PARTIAL">Partial</option>
+                                <option value="PAID">Paid</option>
+                            </select>
+                        </label>
+                        <label><span>Payment Date</span><input id="bookingPaymentDate" type="date"></label>
+                        <label><span>Payment Reference</span><input id="bookingPaymentReference" placeholder="e.g. UPI, cheque, receipt code"></label>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="button button-primary">Save Booking</button>
+                        <button type="button" id="cancelBookingEdit" class="button button-secondary hidden">Cancel Edit</button>
+                    </div>
+                </form>
+            </article>
+
+            <article class="surface-card tinted">
+                <div class="section-header">
+                    <div>
+                        <p class="eyebrow">Ledger Filter</p>
+                        <h2>Refine booking results</h2>
+                    </div>
+                </div>
+                <form id="bookingFilterForm" class="form-stack">
+                    <div class="form-grid">
+                        <label>
+                            <span>Status</span>
+                            <select id="filterBookingStatus">
+                                <option value="">All</option>
+                                <option value="PENDING">Pending</option>
+                                <option value="CONFIRMED">Confirmed</option>
+                                <option value="CANCELLED">Cancelled</option>
+                            </select>
+                        </label>
+                        <label>
+                            <span>Broker</span>
+                            <select id="filterBookingAgentId">
+                                <option value="">All brokers</option>
+                            </select>
+                        </label>
+                        <label><span>From Date</span><input id="filterBookingFromDate" type="date"></label>
+                        <label><span>To Date</span><input id="filterBookingToDate" type="date"></label>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="button button-primary">Apply Filters</button>
+                        <button type="button" id="resetBookingFilters" class="button button-secondary">Reset</button>
+                    </div>
+                </form>
+            </article>
+        </section>
+
+        <section class="stats-grid">
+            <article class="stat-chip">
+                <p class="eyebrow">Visible Bookings</p>
+                <strong id="bookingVisibleCount">0</strong>
+                <span class="muted">Current page</span>
+            </article>
+            <article class="stat-chip">
+                <p class="eyebrow">Confirmed</p>
+                <strong id="bookingConfirmedCount">0</strong>
+                <span class="muted">Current filtered result page</span>
+            </article>
+            <article class="stat-chip">
+                <p class="eyebrow">Pending</p>
+                <strong id="bookingPendingCount">0</strong>
+                <span class="muted">Follow-ups still open</span>
+            </article>
+            <article class="stat-chip">
+                <p class="eyebrow">Upcoming Visits</p>
+                <strong id="bookingUpcomingCount">0</strong>
+                <span class="muted">Future booking dates visible</span>
+            </article>
+            <article class="stat-chip">
+                <p class="eyebrow">Collections</p>
+                <strong id="bookingCollectedAmount">Rs 0</strong>
+                <span class="muted">Visible amount paid</span>
+            </article>
+            <article class="stat-chip">
+                <p class="eyebrow">Outstanding</p>
+                <strong id="bookingOutstandingAmount">Rs 0</strong>
+                <span class="muted">Visible unpaid balance</span>
+            </article>
+        </section>
+
+        <section class="surface-card">
+            <div class="section-header">
+                <div>
+                    <p class="eyebrow">Booking Ledger</p>
+                    <h2>Booking list</h2>
+                </div>
+            </div>
+            <div class="data-table-wrap">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Property</th>
+                        <th>Client</th>
+                        <th>Broker</th>
+                        <th>Date</th>
+                        <th>Payment</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody id="bookingTableBody"></tbody>
+                </table>
+            </div>
+            <div id="bookingPagination" class="pagination"></div>
+        </section>
+    </main>
+</div>
+
+<nav class="bottom-nav">
+    <a href="/dashboard.html" data-nav="dashboard"><span class="material-symbols-outlined">space_dashboard</span><span>Home</span></a>
+    <a href="/leads.html" data-nav="leads"><span class="material-symbols-outlined">conversion_path</span><span>Leads</span></a>
+    <a href="/properties.html" data-nav="properties"><span class="material-symbols-outlined">domain</span><span>Properties</span></a>
+    <a href="/clients.html" data-nav="clients"><span class="material-symbols-outlined">group</span><span>Clients</span></a>
+    <a href="/agents.html" data-nav="agents" class="admin-only"><span class="material-symbols-outlined">badge</span><span>Brokers</span></a>
+    <a href="/bookings.html" data-nav="bookings"><span class="material-symbols-outlined">calendar_today</span><span>Bookings</span></a>
+</nav>
+
+<div id="toast" class="toast"></div>
+<script src="/assets/app.js"></script>
+</body>
+</html>

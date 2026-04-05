@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EstateArchitect India | Login</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body data-page="login" class="auth-body">
+<div class="auth-shell">
+    <section class="auth-showcase">
+        <div>
+            <p class="eyebrow">India Real Estate CRM</p>
+            <h1>Premium property operations for Indian real estate teams, attached to your live Spring Boot backend.</h1>
+        </div>
+        <p class="copy">This frontend is served directly by Spring Boot and connected to your CRM APIs for flats, plots, villas, brokers, clients, bookings, exports, and JWT authentication.</p>
+        <div class="auth-meta">
+            <div class="surface-card glass">
+                <p class="eyebrow">Project Mode</p>
+                <h2>College demo ready for the Indian market</h2>
+                <p class="copy">Inventory, client onboarding, booking workflows, admin-only exports, and API docs are all available from one local app with rupee-friendly formatting.</p>
+                <div class="form-actions">
+                    <a class="button button-secondary" href="/presentation.html">Open Project Brief</a>
+                </div>
+            </div>
+            <div class="auth-credential-list">
+                <div class="auth-credential">
+                    <p class="eyebrow">Admin</p>
+                    <strong>admin@realestatecrm.com</strong>
+                    <p>admin123</p>
+                </div>
+                <div class="auth-credential">
+                    <p class="eyebrow">Broker</p>
+                    <strong>aarav@realestatecrm.com</strong>
+                    <p>agent123</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="auth-panel">
+        <form id="loginForm">
+            <div class="header-copy">
+                <p class="eyebrow">Secure Sign In</p>
+                <h1>Welcome back</h1>
+                <p>Use your CRM credentials to unlock the live dashboard, management screens, and Swagger-powered API reference for your local real-estate demo.</p>
+            </div>
+            <label>
+                <span>Email Address</span>
+                <input id="loginEmail" type="email" placeholder="admin@realestatecrm.com" required>
+            </label>
+            <label>
+                <span>Password</span>
+                <input id="loginPassword" type="password" placeholder="Enter your password" required>
+            </label>
+            <div class="form-actions">
+                <button type="submit" class="button button-primary">Login to CRM</button>
+                <a class="button button-secondary" href="/presentation.html">Project Brief</a>
+                <a class="button button-secondary" href="/swagger-ui.html">Open Swagger</a>
+            </div>
+            <p class="helper-text">The JWT token is stored in your browser and sent automatically to the protected backend APIs.</p>
+        </form>
+    </section>
+</div>
+
+<div id="toast" class="toast"></div>
+<script src="/assets/app.js"></script>
+</body>
+</html>

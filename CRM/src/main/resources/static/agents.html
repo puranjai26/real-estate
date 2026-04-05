@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brokers | EstateArchitect India</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body data-page="agents">
+<div class="topbar-mobile">
+    <strong>EstateArchitect India</strong>
+    <button id="logoutButtonMobile" class="button button-secondary">Logout</button>
+</div>
+
+<div class="app-shell">
+    <aside class="sidebar">
+        <div class="sidebar-head">
+            <h1 class="brand-title">The Architect</h1>
+            <p class="brand-subtitle">India CRM Suite</p>
+        </div>
+        <nav class="nav-links">
+            <a href="/dashboard.html" data-nav="dashboard" class="nav-link"><span class="material-symbols-outlined">space_dashboard</span><span>Dashboard</span></a>
+            <a href="/leads.html" data-nav="leads" class="nav-link"><span class="material-symbols-outlined">conversion_path</span><span>Leads</span></a>
+            <a href="/properties.html" data-nav="properties" class="nav-link"><span class="material-symbols-outlined">domain</span><span>Properties</span></a>
+            <a href="/clients.html" data-nav="clients" class="nav-link"><span class="material-symbols-outlined">group</span><span>Clients</span></a>
+            <a href="/agents.html" data-nav="agents" class="nav-link admin-only"><span class="material-symbols-outlined">badge</span><span>Brokers</span></a>
+            <a href="/bookings.html" data-nav="bookings" class="nav-link"><span class="material-symbols-outlined">calendar_today</span><span>Bookings</span></a>
+        </nav>
+        <div class="sidebar-foot">
+            <div class="user-block">
+                <p class="eyebrow">Signed In</p>
+                <p id="currentUserLabel">Loading...</p>
+            </div>
+            <button id="logoutButton" class="button button-secondary">Logout</button>
+        </div>
+    </aside>
+
+    <main class="page">
+        <header class="page-header">
+            <div class="header-copy">
+                <p class="eyebrow">Admin Layer</p>
+                <h1>Broker management</h1>
+                <p>Create broker and sales-agent accounts, rotate credentials, and track how many listings and bookings each team member is actively handling.</p>
+            </div>
+        </header>
+
+        <section class="split-grid layout-grid">
+            <article class="surface-card">
+                <div class="section-header">
+                    <div>
+                        <p class="eyebrow">Team Entry</p>
+                        <h2>Add or update broker</h2>
+                    </div>
+                </div>
+                <form id="agentForm" class="form-stack">
+                    <input id="agentId" type="hidden">
+                    <div class="form-grid">
+                        <label><span>Name</span><input id="agentName" required></label>
+                        <label><span>Email</span><input id="agentEmail" type="email" required></label>
+                        <label><span>Password</span><input id="agentPassword" type="password" placeholder="Required for new broker"></label>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="button button-primary">Save Broker</button>
+                        <button type="button" id="cancelAgentEdit" class="button button-secondary hidden">Cancel Edit</button>
+                    </div>
+                </form>
+            </article>
+
+            <article class="surface-card tinted info-card">
+                <h3>Role Control</h3>
+                <p class="copy">Brokers are backed by JWT-enabled application users. Creating a broker here provisions the linked login account in the backend at the same time for admin and broker workflows.</p>
+            </article>
+        </section>
+
+        <section class="stats-grid">
+            <article class="stat-chip">
+                <p class="eyebrow">Visible Brokers</p>
+                <strong id="brokerVisibleCount">0</strong>
+                <span class="muted">Loaded on this page</span>
+            </article>
+            <article class="stat-chip">
+                <p class="eyebrow">Listings Managed</p>
+                <strong id="brokerPropertySum">0</strong>
+                <span class="muted">Across visible brokers</span>
+            </article>
+            <article class="stat-chip">
+                <p class="eyebrow">Bookings Managed</p>
+                <strong id="brokerBookingSum">0</strong>
+                <span class="muted">Across visible brokers</span>
+            </article>
+            <article class="stat-chip">
+                <p class="eyebrow">Avg Listings / Broker</p>
+                <strong id="brokerAverageListings">0</strong>
+                <span class="muted">Current page average</span>
+            </article>
+        </section>
+
+        <section class="surface-card">
+            <div class="section-header">
+                <div>
+                    <p class="eyebrow">Team Ledger</p>
+                    <h2>Broker list</h2>
+                </div>
+            </div>
+            <div class="data-table-wrap">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Broker</th>
+                        <th>Email</th>
+                        <th>Properties</th>
+                        <th>Bookings</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody id="agentTableBody"></tbody>
+                </table>
+            </div>
+            <div id="agentPagination" class="pagination"></div>
+        </section>
+    </main>
+</div>
+
+<nav class="bottom-nav">
+    <a href="/dashboard.html" data-nav="dashboard"><span class="material-symbols-outlined">space_dashboard</span><span>Home</span></a>
+    <a href="/leads.html" data-nav="leads"><span class="material-symbols-outlined">conversion_path</span><span>Leads</span></a>
+    <a href="/properties.html" data-nav="properties"><span class="material-symbols-outlined">domain</span><span>Properties</span></a>
+    <a href="/clients.html" data-nav="clients"><span class="material-symbols-outlined">group</span><span>Clients</span></a>
+    <a href="/agents.html" data-nav="agents" class="admin-only"><span class="material-symbols-outlined">badge</span><span>Brokers</span></a>
+    <a href="/bookings.html" data-nav="bookings"><span class="material-symbols-outlined">calendar_today</span><span>Bookings</span></a>
+</nav>
+
+<div id="toast" class="toast"></div>
+<script src="/assets/app.js"></script>
+</body>
+</html>
